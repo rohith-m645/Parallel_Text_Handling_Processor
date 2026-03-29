@@ -124,15 +124,25 @@ python-dotenv
 ## 📁 Project Structure
 
 ```
-parallel-text-processor/
+Parallel_Text_Processor/
 │
-├── app.py                  # Main Streamlit application
-├── requirements.txt        # Python dependencies
-├── .env                    # Email credentials (DO NOT commit)
-├── .gitignore              # Ignores .env and generated files
-├── sentiment_results.db    # SQLite database (auto-generated)
-└── README.md               # This file
-```
+├── app.py
+├── pipeline.py
+├── .gitignore
+│
+├── module/
+│   ├── __init__.py
+│   ├── loader.py
+│   ├── scorer.py
+│   ├── search.py
+│   ├── storage.py
+│
+├── pages/
+│   ├── 1_Upload.py
+│   ├── 2_Results.py
+│   ├── 3_Insights.py
+│   ├── 4_Email.py
+│   ├── .env  
 
 ---
 
