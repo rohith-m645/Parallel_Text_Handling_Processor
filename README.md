@@ -143,6 +143,7 @@ Parallel_Text_Processor/
 │   ├── 3_Insights.py
 │   ├── 4_Email.py
 │   ├── .env  
+---
 
 ---
 
@@ -157,11 +158,13 @@ Parallel_Text_Processor/
 
 ---
 
+---
 ## ⚠️ Security Notes
 
 - **Never commit your `.env` file to GitHub**
 - If you accidentally expose your app password, revoke it immediately at https://myaccount.google.com/apppasswords
 - `.gitignore` is included to prevent accidental credential commits
+---
 
 ---
 
