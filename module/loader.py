@@ -10,6 +10,7 @@
 """
 
 import re
+import io
 import pandas as pd
 from docx import Document
 from PyPDF2 import PdfReader
@@ -17,20 +18,12 @@ import streamlit as st
 
 
 def tokenize(text):
-    """
-    Breaks a string into individual word tokens using regex.
-    Example: "Good product!" → ["good", "product"]
-    """
+    """Breaks a string into word tokens using regex."""
     return re.findall(r'\b\w+\b', str(text).lower())
 
 
 def clean_text(text):
-    """
-    Cleans raw text:
-    1. Removes control characters
-    2. Strips non-ASCII characters
-    Safe for SQLite and Excel storage.
-    """
+    """Removes control characters and non-ASCII content."""
     text = str(text)
     text = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', text)
     text = text.encode('ascii', 'ignore').decode('ascii')
@@ -41,29 +34,18 @@ def clean_text(text):
 def read_file(file_name, file_bytes, ext):
     """
     Loads different file types into text content.
-    Cached with @st.cache_data to prevent re-reading on reruns.
-
-    Returns:
-        str       → for TXT, DOCX, PDF
-        DataFrame → for CSV, XLSX
+    Returns str for TXT/DOCX/PDF, DataFrame for CSV/XLSX.
     """
-    import io
-
     if ext == "txt":
         return file_bytes.decode("utf-8")
-
     elif ext == "csv":
         return pd.read_csv(io.BytesIO(file_bytes))
-
     elif ext == "xlsx":
         return pd.read_excel(io.BytesIO(file_bytes))
-
     elif ext == "docx":
         doc = Document(io.BytesIO(file_bytes))
         return "\n".join([p.text for p in doc.paragraphs])
-
     elif ext == "pdf":
         reader = PdfReader(io.BytesIO(file_bytes))
         return "\n".join([p.extract_text() or "" for p in reader.pages])
-
     return ""
