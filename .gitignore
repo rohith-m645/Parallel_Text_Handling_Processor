@@ -1,9 +1,0 @@
-# Credentials
-.env
-
-# Generated files
-*.db
-*.xlsx
-__pycache__/
-*.pyc
-.streamlit/
